@@ -31,16 +31,9 @@ public class Renderer {
 	 * by binding it. We also need to enable the relevant attributes of the VAO,
 	 * which in this case is just attribute 0 where we stored the position data.
 	 * 
-	 * The VAO can then be rendered to the screen using glDrawElements(). Using
-	 * this draw method tells OpenGL that we want to use the index buffer to
-	 * determine how the vertices should be connected instead of just connecting
-	 * the vertices together in the order that they are stored in the VAO.
-	 * 
-	 * We tell it what type of shapes to render and the number of vertices that
-	 * it needs to render. We also tell it was format the index data is in (we
-	 * used ints) and finally we indicate where in the index buffer it should
-	 * start rendering. We want it to start right at the beginning and render
-	 * everything, so we put 0.
+	 * The VAO can then be rendered to the screen using glDrawArrays(). We tell
+	 * it what type of shapes to render and the number of vertices that it needs
+	 * to render.
 	 * 
 	 * After rendering we unbind the VAO and disable the attribute.
 	 * 
@@ -50,7 +43,7 @@ public class Renderer {
 	public void render(RawModel model) {
 		GL30.glBindVertexArray(model.getVaoID());
 		GL20.glEnableVertexAttribArray(0);
-		GL11.glDrawElements(GL11.GL_TRIANGLES, model.getVertexCount(), GL11.GL_UNSIGNED_INT, 0);
+		GL11.glDrawArrays(GL11.GL_TRIANGLES, 0, model.getVertexCount());
 		GL20.glDisableVertexAttribArray(0);
 		GL30.glBindVertexArray(0);
 	}
